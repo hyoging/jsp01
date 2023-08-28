@@ -9,13 +9,25 @@
 </head>
 <body>
 	views.jsp<br>
-	<%
-		Enumeration<String> params = request.getParameterNames();
-		while(params.hasMoreElements()){
-			String s = params.nextElement();
-			out.print(request.getParameter(s) + "<br>");
-		}
-	%>
+   <%
+      request.setCharacterEncoding("utf-8");
+      String[] names = {"이름","소개","나이","취미"};
+      Enumeration<String> params = request.getParameterNames();
+      for(int i=0 ; params.hasMoreElements() ; i++ ){
+         String s = params.nextElement();
+         if( !s.equals("hobby") ){
+            out.print(names[i]+" : "+request.getParameter(s)+"<br>");
+         }else{
+            String[] hobby = request.getParameterValues(s);
+            out.print(names[i]+"<br>");
+            if(hobby != null){
+               for(String n : hobby){
+                  out.print( n+", ");
+               }
+            }
+         }
+      }
+   %>
 
 </body>
 </html>
